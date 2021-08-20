@@ -1,0 +1,7 @@
+TO CREATE:
+curl -X POST "http://127.0.0.1:5000/create" -H  "Content-Type:application/json" -d "{\"Name\":\"Curl Phone\",\"Description\":\"Curl Descr\",\"Params\":{\"Model\":\"Curl Model\",\"Screen\":\"16*9\",\"Any_Params\":\"Yes\"}}"
+
+BY ID:
+curl -X GET "http://127.0.0.1:5000/get_by_id?good_id=611f99f1a79a8e89c19c8b3c" -H  "Content-Type:application/json"
+
+BY PARAMS:
