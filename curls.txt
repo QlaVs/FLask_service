@@ -1,8 +1,0 @@
-TO CREATE:
-curl -XPOST "http://127.0.0.1:5000/create" -H  "Content-Type:application/json" -d "{\"Name\":\"JPhone\",\"Description\":\"JPhone Descr\",\"Params\":{\"Model\":\"SL\",\"Screen\":\"16*9\",\"Battery\":\"Li-Po 2000 mAh\"}}"
-
-BY ID:
-curl -XGET "http://127.0.0.1:5000/get_by_id?good_id=611f9c0dde1ce12841ce24c2" -H  "Content-Type:application/json"
-
-BY PARAMS:
-curl -XGET "http://127.0.0.1:5000/get_info?Name=JPhone&Battery=Li-Po%202000%20mAh" -H  "accept: application/json"
