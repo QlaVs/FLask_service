@@ -1,4 +1,4 @@
-from flask import Flask, Response, request
+from flask import Flask, Response
 from collections import OrderedDict
 from bson import ObjectId
 import pymongo
@@ -54,7 +54,7 @@ def create_goods():
                         status=200,
                         mimetype="application/json")
 
-    except:
+    except Exception as ex:
         return Response(response="Error while creating item, check fields ('Name' and 'Description' requeired)",
                         status=500)
 
