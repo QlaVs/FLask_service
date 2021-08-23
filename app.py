@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, request
 from collections import OrderedDict
 from bson import ObjectId
 import pymongo
@@ -53,8 +53,8 @@ def create_goods():
                                              "Good_id": f"{db_response.inserted_id}"}),
                         status=200,
                         mimetype="application/json")
-
     except Exception as ex:
+        print(ex)
         return Response(response="Error while creating item, check fields ('Name' and 'Description' requeired)",
                         status=500)
 
