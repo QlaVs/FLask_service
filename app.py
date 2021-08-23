@@ -1,6 +1,7 @@
 from bson import ObjectId
 from flask import Flask, Response, request
 import pymongo
+from collections import OrderedDict
 import json
 
 app = Flask(__name__)
@@ -8,11 +9,39 @@ app = Flask(__name__)
 try:
     mongo = pymongo.MongoClient(host="localhost", port=27017)
 
-    db = mongo.microservice
+    db = mongo["microservice"]
+
     mongo.server_info()
 
-except:
-    print("Err - No Connection")
+    db.create_collection("goods")
+
+    vexpr = {
+        "$jsonSchema":
+        {
+            "bsonType": "object",
+            "required": ["Name", "Description"],
+            "properties": {
+                "Name": {
+                    "bsonType": "string"
+                },
+                "Description": {
+                    "bsonType": "string"
+                },
+                "Params": {
+                    "bsonType": "object"
+                }
+            }
+        }
+    }
+
+    cmd = OrderedDict([("collMod", "goods"),
+                       ("validator", vexpr),
+                       ("validationLevel", "moderate")])
+
+    db.command(cmd)
+
+except Exception as ex:
+    print(ex)
 
 
 @app.route('/create', methods=["POST"])
@@ -24,8 +53,9 @@ def create_goods():
                                              "Good_id": f"{db_response.inserted_id}"}),
                         status=200,
                         mimetype="application/json")
-    except Exception as ex:
-        return Response(response=str(ex),
+
+    except:
+        return Response(response="Error while creating item, check fields ('Name' and 'Description' requeired)",
                         status=500)
 
 
