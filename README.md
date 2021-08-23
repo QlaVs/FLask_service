@@ -2,7 +2,7 @@
 
 Веб-фреймворк: Flask
 
-Сущности хранятся в MongoDB на localhost:27017 (можно запускать командой docker run -d -p 27017:27017 mongo)
+Сущности хранятся в MongoDB на localhost:27017  (можно запускать командой docker run -d -p 27017:27017 mongo)
 
 Для работы БД нужно установить локальную MongoDB  
 https://docs.mongodb.com/manual/installation/
