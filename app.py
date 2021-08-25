@@ -76,22 +76,25 @@ def good_by_id():
 def get():
     try:
         args = list(request.args.items())
-        goods = []
+        data = {}
 
         for arg in args:
             if arg[0] != "Name":
-                data = list(db.goods.find({f"Params.{arg[0]}": f"{arg[1]}"}))
+                data[f"Params.{arg[0]}"] = f"{arg[1]}"
             else:
-                data = list(db.goods.find({f"{arg[0]}": f"{arg[1]}"}))
-            data[0]["_id"] = str(data[0]["_id"])
-            goods.append(data[0])
-            data.clear()
-        return Response(response=json.dumps(goods),
+                data[f"{arg[0]}"] = f"{arg[1]}"
+        print(data)
+        good = list(db.goods.find(data))
+        if not good:
+            return Response(response=json.dumps({"Err": "No goods with such params"}))
+        for item in good:
+            item["_id"] = str(item["_id"])
+        data.clear()
+        return Response(response=json.dumps(good),
                         status=200,
                         mimetype="application/json")
     except Exception as ex:
         print(ex)
-        return Response(response=json.dumps({"Err": "No goods with such params"}))
 
 
 if __name__ == '__main__':
