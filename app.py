@@ -79,7 +79,7 @@ def get():
         data = {}
 
         for arg in args:
-            if arg[0] != "Name":
+            if arg[0] != "Name" and arg[0] != "Description":
                 data[f"Params.{arg[0]}"] = f"{arg[1]}"
             else:
                 data[f"{arg[0]}"] = f"{arg[1]}"
